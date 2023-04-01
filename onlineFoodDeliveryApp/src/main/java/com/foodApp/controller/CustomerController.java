@@ -28,16 +28,14 @@ public class CustomerController {
 		return new ResponseEntity<Customer>(savedCustomer,HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping("/customer/{customerId}")
-	public Customer removeCustomerByIdHandler(@PathVariable("customerId") Integer customerId){
-		
-		return cService.removeCustomerById(customerId);	
+	@DeleteMapping("/customer")
+	public Customer removeCustomerByIdHandler(){
+		return cService.removeCustomer();
 	}
 	
-	@GetMapping("/customer/{customerId}")
-	public Customer viewCustomerHandler(@PathVariable("customerId") Integer customerId) {
-		
-		return cService.viewCustomer(customerId);
+	@GetMapping("/customer/")
+	public Customer viewCustomerHandler() {
+		return cService.viewCustomer();
 	}
 	
 	@PutMapping("/customer")

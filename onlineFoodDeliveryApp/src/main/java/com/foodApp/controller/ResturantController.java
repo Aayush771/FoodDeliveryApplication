@@ -2,8 +2,7 @@ package com.foodApp.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.foodApp.Exception.NotFoundException;
-import com.foodApp.UserLogin.service.CurrentUserSessionService;
 import com.foodApp.model.Restaurant;
 import com.foodApp.service.RestaurantService;
 
@@ -27,9 +25,6 @@ public class ResturantController{
 	@Autowired
 	private RestaurantService resSer;
 	
-	 @Autowired
- 	 private CurrentUserSessionService  currentUserSessionService;
-	
 	@PostMapping("/resturant")
 	public ResponseEntity<Restaurant> saveResturant(@Valid @RequestBody Restaurant res) {
 		
@@ -38,19 +33,7 @@ public class ResturantController{
 		return new ResponseEntity<Restaurant>(r,HttpStatus.ACCEPTED);
 	}
 	
-	//-------------------------------Login authentication added------------------------------------	j
-	@GetMapping("/resturantId/{resturantId}")
-	public ResponseEntity<Restaurant> getStudentByresturantId(@PathVariable ("resturantId") Integer rId,@RequestParam String key){
-		
-		Integer sessionId = currentUserSessionService.getCurrentUserSessionId(key);
-    	
-    	if(sessionId != null)
-    		{	Restaurant r=resSer.viewResturantByResturantId(rId);	
-    			return new ResponseEntity<Restaurant>(r,HttpStatus.ACCEPTED);
-    		}
-    	else
-    		throw new NotFoundException();
-	}
+	//-------------------------------Login authentication added------------------------------------
 	
 	
 	@DeleteMapping("/resturant/{resturantId}")

@@ -1,30 +1,15 @@
 package com.foodApp.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @Data
@@ -33,17 +18,26 @@ import lombok.ToString;
 @ToString
 public class Customer {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Integer customerId;
 	private String name;
 	private Integer age;
 	private String gender;
 	private String mobileNo;
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private String password;
 	private String email;
-	@OneToOne(cascade = CascadeType.ALL)
-	private Address address;
+	private String role;
+	@JsonIgnore
+	@Embedded
+	@ElementCollection
+	private List<Address> address;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private FoodCart foodCart;
+	@JsonIgnore
+	@OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
+	private List<OrderDetails> orderDetails;
+
 }
 

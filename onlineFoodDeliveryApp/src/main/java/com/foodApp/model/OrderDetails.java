@@ -2,14 +2,9 @@ package com.foodApp.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,14 +18,15 @@ import lombok.ToString;
 public class OrderDetails {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Integer orderId;
 	private LocalDateTime datetime;
 	private String orderStatus;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private FoodCart cart;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JsonIgnore
-	private  Bill bill;
+	private Integer totalAmount;
+	private Integer totalItem;
+	@ManyToOne(cascade = CascadeType.ALL)
+    private Customer customer;
 }

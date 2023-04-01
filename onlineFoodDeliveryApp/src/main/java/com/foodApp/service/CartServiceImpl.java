@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +12,6 @@ import com.foodApp.Exception.NoItemFoundInFoodcart;
 import com.foodApp.model.Customer;
 import com.foodApp.model.FoodCart;
 import com.foodApp.model.Item;
-import com.foodApp.model.Restaurant;
 import com.foodApp.repository.CartDao;
 import com.foodApp.repository.CustomerDAO;
 import com.foodApp.repository.ItemDao;
@@ -105,7 +102,7 @@ public class CartServiceImpl implements CartService{
 	public FoodCart cartDetailsforOrder(Integer customerId, Integer quantity, Integer cartId)
 			throws ItemUnavailable {
 		
-		Customer customer = customerServiceImpl.viewCustomer(customerId);
+		Customer customer = customerServiceImpl.viewCustomer();
 		
 		if( customer != null ){
 			

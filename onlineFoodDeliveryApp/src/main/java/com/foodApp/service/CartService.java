@@ -1,6 +1,5 @@
 package com.foodApp.service;
 
-import javax.validation.Valid;
 import com.foodApp.Exception.ItemUnavailable;
 import com.foodApp.model.FoodCart;
 import com.foodApp.model.Item;

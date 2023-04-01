@@ -1,8 +1,8 @@
 package com.foodApp.service;
 
 
-import com.foodApp.Exception.BillNotFoundException;
 
+import com.foodApp.Exception.CustomerException;
 import com.foodApp.model.Customer;
 import com.foodApp.model.Item;
 import com.foodApp.model.OrderDetails;
@@ -25,7 +25,7 @@ public class OrderServideIml implements OrderService{
     public OrderDetails addOrders(OrderDetails orderDetails) {
         Optional<OrderDetails> opt = orderDao.findById(orderDetails.getOrderId());
         if (opt.isPresent()) {
-            throw  new BillNotFoundException("Orders Already Exist");
+            throw  new CustomerException("Orders Already Exist");
         }
         else  orderDao.save(orderDetails);
         return orderDetails;
@@ -37,28 +37,28 @@ public class OrderServideIml implements OrderService{
         if (opt.isPresent()) {
             orderDao.save(orderDetails);
         }
-        else   throw  new BillNotFoundException("Orders Already Exist");
+        else   throw  new CustomerException("Orders Already Exist");
         return orderDetails;
     }
 
     @Override
     public OrderDetails removeOrder(OrderDetails orderDetails) {
 
-        OrderDetails orderDetails1=orderDao.findById(orderDetails.getOrderId()).orElseThrow(()-> new BillNotFoundException("Order not Found"));
+        OrderDetails orderDetails1=orderDao.findById(orderDetails.getOrderId()).orElseThrow(()-> new CustomerException("Order not Found"));
         orderDao.delete(orderDetails1);
         return orderDetails1;
     }
 
     @Override
     public OrderDetails viewOrderById(Integer id) {
-        OrderDetails orderDetails1=orderDao.findById(id).orElseThrow(()-> new BillNotFoundException("Order not Found"));
+        OrderDetails orderDetails1=orderDao.findById(id).orElseThrow(()-> new CustomerException("Order not Found"));
 
         return orderDetails1;
     }
 
     @Override
     public List<Item> viewOrdersByCustomerId(Integer customerId) {
-        Customer customer=customerDAO.findById(customerId).orElseThrow(()-> new BillNotFoundException("Customer Not Found"));
+        Customer customer=customerDAO.findById(customerId).orElseThrow(()-> new CustomerException("Customer Not Found"));
         List<Item> orderlist= customer.getFoodCart().getItems();
         return orderlist;
     }
