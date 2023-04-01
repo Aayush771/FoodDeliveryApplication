@@ -1,4 +1,4 @@
-# online_food_delivery_app-backend
+FoodDeliveryApplication
 
 
 
@@ -15,7 +15,7 @@ It is an online food delivery app where user can order food for them self like z
 
 # <span style="color:blue"> Tech Stack Used: </span>
 
-We have used sts spring tool platform ,Java,spring ,spring boot framework , annotations, model , service layer , service implementation , controller layer , data access layer and mysql as a database for building this Project. We also used tools like GitHub for collaboration of our project, Slack & Zoom as means of a communication channel.
+We have used sts spring tool platform ,Java,spring ,spring boot framework ,Spring Security, annotations, model , service layer , service implementation , controller layer , data access layer and mysql as a database for building this Project. We also used tools like GitHub for collaboration of our project, Slack & Zoom as means of a communication channel.
 
 
 # <span style="colorblue"> Experience of team: </span>
