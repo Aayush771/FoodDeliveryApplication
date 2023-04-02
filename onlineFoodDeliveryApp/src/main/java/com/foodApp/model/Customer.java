@@ -35,6 +35,9 @@ public class Customer {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private FoodCart foodCart;
+    @JsonIgnore
+	@OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+	private List<Card> cards;
 	@JsonIgnore
 	@OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
 	private List<OrderDetails> orderDetails;

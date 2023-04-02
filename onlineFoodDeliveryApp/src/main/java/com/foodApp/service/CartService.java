@@ -7,7 +7,7 @@ import com.foodApp.model.Restaurant;
 
 public interface CartService{	
 	
-	public FoodCart addItemToCart(Integer cartid, Integer itemname) throws ItemUnavailable;
+	public FoodCart addItemToCart(Integer itemname) throws ItemUnavailable;
 //	public List<CartItem> getCartItems(String token);
 //	public Cart removeItemFromCart(CartDto cartDto,String token) throws ItemUnavailable;
 

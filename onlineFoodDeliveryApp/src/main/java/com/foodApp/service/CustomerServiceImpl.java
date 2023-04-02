@@ -3,12 +3,15 @@ package com.foodApp.service;
 import com.foodApp.AppSecurity.GetCurrentLoginUserDetails;
 import com.foodApp.Exception.NotFoundException;
 import com.foodApp.Exception.UserAlreadyExistWithEmail;
+import com.foodApp.model.FoodCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.foodApp.repository.CustomerDAO;
 import com.foodApp.Exception.CustomerException;
 import com.foodApp.model.Customer;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +30,8 @@ public class CustomerServiceImpl implements CustomerService {
 			throw new CustomerException("No user found.. try login first ");
 		}
 		customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+		FoodCart foodCart = new FoodCart();
+		customer.setFoodCart(foodCart);
 		return cDao.save(customer);
 	}
 	@Override
@@ -60,22 +65,25 @@ public class CustomerServiceImpl implements CustomerService {
 			return customer;
 
 		} else {
-			throw new NotFoundException("No user found.. try login first");
+			throw new CustomerException("No user found.. try login first");
 		}
 
 	}
 	@Override
 	public Customer viewCustomer() throws CustomerException {
-		// TODO Auto-generated method stub
 		if (currentLoginUserDetails.checkLogin()) {
 
 			return currentLoginUserDetails.getCurrentCustomer();
 
 		} else {
-			throw new NotFoundException("No user found.. try login first");
+			throw new CustomerException("No user found.. try login first");
 		}
 	}
-	
-	
+
+	@Override
+	public List<Customer> getAllCustomer() {
+		return cDao.findAll();
+	}
+
 
 }

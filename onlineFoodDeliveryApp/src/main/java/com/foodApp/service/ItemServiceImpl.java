@@ -20,7 +20,6 @@ public class ItemServiceImpl implements ItemService{
 
 	@Override
 	public Item addItem(Item i) {
-		// TODO Auto-generated method stub
 		return itemDao.save(i);
 	}
 

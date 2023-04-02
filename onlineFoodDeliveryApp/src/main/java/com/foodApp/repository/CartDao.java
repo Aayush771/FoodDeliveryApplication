@@ -8,5 +8,6 @@ import com.foodApp.model.FoodCart;
 
 @Repository
 public interface CartDao extends JpaRepository<FoodCart,Integer>{
+
 	
 }

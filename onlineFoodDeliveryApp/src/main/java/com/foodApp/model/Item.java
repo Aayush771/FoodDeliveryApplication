@@ -18,11 +18,9 @@ public class Item{
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Integer itemId;
 	private String itemName;
-	private Integer quantity;
 	private Double cost;
+	private Integer quantity;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Restaurant restaurant;
 
-	@ManyToOne
-	private FoodCart foodCart;
 }

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.foodApp.model.Customer;
 import com.foodApp.service.CustomerService;
 
+import java.util.List;
+
 
 @RestController
 public class CustomerController {
@@ -44,5 +46,9 @@ public class CustomerController {
 		Customer updatedCustomer = cService.updateCustomer(customer);
 		
 		return new ResponseEntity<Customer>(updatedCustomer,HttpStatus.ACCEPTED);
+	}
+	@GetMapping("/customers")
+	public List<Customer> viewAllCustomersHandler() {
+		return cService.getAllCustomer();
 	}
 }

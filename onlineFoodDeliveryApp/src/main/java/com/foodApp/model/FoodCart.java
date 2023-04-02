@@ -20,20 +20,8 @@ public class FoodCart {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Integer cartId;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JsonIgnore
-	private Customer customer;
-	
 	@OneToMany(mappedBy = "foodCart",cascade = CascadeType.ALL)
 	private List<Item> items;
-	private Integer numberoFItems;
-	private Integer totalCost;
-	private int CostofItems(List<Item> items){
-		int cost = 0;
-		for(Item i:items){
-			cost+= i.getCost();
-		}
-		return cost;
-	}
+
+
 }

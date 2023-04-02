@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.foodApp.AppSecurity.GetCurrentLoginUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,42 +26,44 @@ public class CartServiceImpl implements CartService{
 	
 	@Autowired
 	private ItemDao itemDao;
-	
 	@Autowired
 	private CustomerDAO customerDAO;
-	
+
 	@Autowired
-	private CustomerServiceImpl customerServiceImpl;
+	private GetCurrentLoginUserDetails currentLoginUserDetails;
 
 	@Override
-	public FoodCart addItemToCart(Integer cartid, Integer itemid) throws ItemUnavailable {
-		
-		
-		Optional<FoodCart> optR = cartDao.findById(cartid);
-		
-		if(optR.isPresent()) {
-			
-			Optional<Item> i= itemDao.findById(itemid);
-			
-		     Item igotit =i.get();
-			if(i!=null) {
-				
-				FoodCart fd =optR.get();
-				
-				List<Item> l1=new ArrayList<>();
-				
-				l1.addAll(fd.getItems());
-				l1.add(igotit);
-				
-			    fd.setItems(l1);
-				
-				System.out.println(fd);
-				
-				return fd;
+	public FoodCart addItemToCart(Integer itemId) throws ItemUnavailable {
+
+		if (currentLoginUserDetails.checkLogin()) {
+			Customer customer = currentLoginUserDetails.getCurrentCustomer();
+			FoodCart foodCart = customerDAO.findFoodCartByCustomerId(customer.getCustomerId());
+			Optional<Item> item = itemDao.findById(itemId);
+			if (item.isPresent()) {
+
+				Optional<Item> i = itemDao.findById(itemId);
+
+				Item gotit = i.get();
+//				if (i != null) {
+//
+//					Item fd = item.get();
+//
+//					List<Item> l1 = new ArrayList<>();
+//
+//					l1.addAll(fd.getItems());
+//					l1.add(gotit);
+//
+//					fd.setItems(l1);
+//
+//					System.out.println(fd);
+//
+//					return fd;
+//				}
+				throw new ItemUnavailable("Sorry no item found");
 			}
-			throw new ItemUnavailable("Sorry no item found");
-		}		
-	 throw new NoItemFoundInFoodcart("not found");
+			throw new NoItemFoundInFoodcart("not found");
+		}
+		return null;
 	}
 
 	@Override
@@ -92,8 +95,6 @@ public class CartServiceImpl implements CartService{
 	       	 cartDao.delete(existingcart);
 	       	
 	       	return existingcart;
-	       	
-	       	
 		   }
 			 throw new NoItemFoundInFoodcart("not found");
 	}
